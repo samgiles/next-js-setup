@@ -1,0 +1,20 @@
+@import "next-colors/main";
+
+@import "o-assets/main";
+@include oAssetsSetModulePaths((
+  o-ft-icons: '//build.origami.ft.com/files/o-ft-icons@2.3.1'
+));
+@import "o-ft-icons/main";
+@include oFtIconsFontFace();
+.icon {
+  @include oFtIconsBaseIconStyles();
+}
+
+@import "o-fonts/main";
+@include oFontsInclude(BentonSans, normal);
+$fontSans: BentonSans, Arial, sans-serif !default;
+$fontSerif: Georgia, Times New Roman, serif !default;
+$fontBrand: FinancierDisplay, Georgia, serif !default;
+
+$o-grid-is-silent: false;
+@import "o-grid/main";
