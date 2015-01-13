@@ -10,6 +10,11 @@
   @include oFtIconsBaseIconStyles();
 }
 
+/* remove icons until o-icons is fixed in the buildservice is fixed */
+[class*="icon"] {
+        display: none;
+}
+
 @import "o-fonts/main";
 @include oFontsInclude(BentonSans, normal);
 $fontSans: BentonSans, Arial, sans-serif !default;
