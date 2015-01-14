@@ -17,6 +17,8 @@
 
 @import "o-fonts/main";
 @include oFontsInclude(BentonSans, normal);
+@include oFontsInclude(FinancierDisplay, normal);
+
 $fontSans: BentonSans, Arial, sans-serif !default;
 $fontSerif: Georgia, Times New Roman, serif !default;
 $fontBrand: FinancierDisplay, Georgia, serif !default;
