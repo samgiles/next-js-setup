@@ -23,6 +23,9 @@ $fontSans: BentonSans, Arial, sans-serif !default;
 $fontSerif: Georgia, Times New Roman, serif !default;
 $fontBrand: FinancierDisplay, Georgia, serif !default;
 
+$o-grid-large-max-width: 970px;
+$o-grid-extra-large-max-width: 970px;
+
 // disabling until import once is implemented in o-grid 3
 // $o-grid-is-silent: false;
 // @import "o-grid/main";
