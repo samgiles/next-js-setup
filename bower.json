@@ -1,12 +1,8 @@
 {
   "name": "next-ui-setup",
   "homepage": "https://github.com/Financial-Times/next-ui-setup",
-  "authors": [
-    "Rhys Evans <rhys.evans@ft.com>"
-  ],
   "description": "Generic global set up of common styling dependencies",
   "main": "main.scss",
-  "license": "MIT",
   "private": true,
   "ignore": [
     "bower_components"
