@@ -27,6 +27,7 @@ $o-grid-large-max-width: 970px;
 $o-grid-extra-large-max-width: 970px;
 
 $o-grid-is-silent: false;
+$o-grid-mode: snappy;
 @import "o-grid/main";
 // we don't want grid outputting again if some other module includes it
 // not fool proof, but an improvement
