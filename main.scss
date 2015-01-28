@@ -10,7 +10,7 @@
   @include oFtIconsBaseIconStyles();
 }
 
-/* remove icons until o-icons is fixed in the buildservice is fixed */
+/* remove icons until o-icons is fixed in the buildservice */
 [class*="icon"] {
         display: none;
 }
@@ -26,6 +26,8 @@ $fontBrand: FinancierDisplay, Georgia, serif !default;
 $o-grid-large-max-width: 970px;
 $o-grid-extra-large-max-width: 970px;
 
-// disabling until import once is implemented in o-grid 3
-// $o-grid-is-silent: false;
-// @import "o-grid/main";
+$o-grid-is-silent: false;
+@import "o-grid/main";
+// we don't want grid outputting again if some other module includes it
+// not fool proof, but an improvement
+$o-grid-is-silent: true;
