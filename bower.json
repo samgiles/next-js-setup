@@ -9,7 +9,7 @@
   ],
   "dependencies": {
     "next-colors": "^1.0.1",
-    "o-fonts": "^1.5.0",
+    "o-fonts": "^1.6.0",
     "o-assets": "^1.0.0",
     "o-grid": "^3.0.0",
     "o-ft-icons": "2.3.4"
