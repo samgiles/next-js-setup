@@ -16,12 +16,13 @@
 }
 
 @import "o-fonts/main";
-@include oFontsInclude(BentonSans, normal);
-@include oFontsInclude(FinancierDisplay, normal);
+@include oFontsInclude(FinancierDisplayWeb, normal);
+@include oFontsInclude(MetricWeb, normal);
+@include oFontsInclude(MetricWeb, light);
 
-$fontSans: BentonSans, Arial, sans-serif !default;
+$fontSans: MetricWeb, Arial, sans-serif !default;
 $fontSerif: Georgia, Times New Roman, serif !default;
-$fontBrand: FinancierDisplay, Georgia, serif !default;
+$fontBrand: FinancierDisplayWeb, Georgia, serif !default;
 
 $o-grid-large-max-width: 970px;
 $o-grid-extra-large-max-width: 970px;
