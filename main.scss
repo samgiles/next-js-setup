@@ -17,6 +17,7 @@
 
 @import "o-fonts/main";
 @include oFontsInclude(FinancierDisplayWeb, normal);
+@include oFontsInclude(MetricWeb, bold);
 @include oFontsInclude(MetricWeb, normal);
 @include oFontsInclude(MetricWeb, light);
 
