@@ -12,7 +12,7 @@
 
 /* remove icons until o-icons is fixed in the buildservice */
 [class*="icon"] {
-        display: none;
+    display: none;
 }
 
 @import "o-fonts/main";
@@ -25,12 +25,6 @@ $fontSans: MetricWeb, Arial, sans-serif !default;
 $fontSerif: Georgia, Times New Roman, serif !default;
 $fontBrand: FinancierDisplayWeb, Georgia, serif !default;
 
-$o-grid-large-max-width: 970px;
-$o-grid-extra-large-max-width: 970px;
-
 $o-grid-is-silent: false;
 $o-grid-mode: snappy;
 @import "o-grid/main";
-// we don't want grid outputting again if some other module includes it
-// not fool proof, but an improvement
-$o-grid-is-silent: true;
