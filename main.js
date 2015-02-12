@@ -1,7 +1,7 @@
 'use strict';
 
 var flags = require('next-feature-flags-client');
-var Raven = require('./client/raven');
+var Raven = require('./src/raven');
 
 flags.init().then(function() {
 
@@ -13,7 +13,7 @@ flags.init().then(function() {
 	}
 
 	if (flags.get('analytics').isSwitchedOn) {
-		require('./client/tracking/main');
+		require('./src/tracking');
 	}
 
 });
