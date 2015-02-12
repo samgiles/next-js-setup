@@ -1,3 +1,5 @@
+var Track = require('./ft-tracking');
+
 function sendNextChannel() {
 	if(Track && Track.IJento) {
 		Track.IJento.getSiTracker().addTrackParam('channel', 'next');
@@ -6,4 +8,4 @@ function sendNextChannel() {
 }
 
 sendNextChannel();
-require('./click-position-tracking').init();
+require('./attention-time').init();

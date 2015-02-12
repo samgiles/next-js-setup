@@ -2,17 +2,17 @@
 
 @import "o-assets/main";
 @include oAssetsSetModulePaths((
-  o-ft-icons: '//build.origami.ft.com/files/o-ft-icons@2.3.4'
+	o-ft-icons: '//build.origami.ft.com/files/o-ft-icons@2.3.4'
 ));
 @import "o-ft-icons/main";
 @include oFtIconsFontFace();
 .icon {
-  @include oFtIconsBaseIconStyles();
+	@include oFtIconsBaseIconStyles();
 }
 
 /* remove icons until o-icons is fixed in the buildservice */
 [class*="icon"] {
-    display: none;
+	display: none;
 }
 
 @import "o-fonts/main";
