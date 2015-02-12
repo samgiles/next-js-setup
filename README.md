@@ -1,4 +1,4 @@
-# next-ui-setup
+# next-ui-setup [![Build Status](https://travis-ci.org/Financial-Times/next-ui-setup.svg?branch=js)](https://travis-ci.org/Financial-Times/next-ui-setup)
 
 Generic global set up of dependencies e.g. icons, fonts, buttons, typography
 
