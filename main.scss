@@ -17,9 +17,10 @@
 
 @import "o-fonts/main";
 @include oFontsInclude(FinancierDisplayWeb, normal);
+@include oFontsInclude(MetricWeb, light);
+@include oFontsInclude(MetricWeb, medium);
 @include oFontsInclude(MetricWeb, bold);
 @include oFontsInclude(MetricWeb, normal);
-@include oFontsInclude(MetricWeb, light);
 
 $fontSans: MetricWeb, Arial, sans-serif !default;
 $fontSerif: Georgia, Times New Roman, serif !default;
