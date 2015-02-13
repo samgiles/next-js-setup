@@ -2,7 +2,7 @@
   "name": "next-ui-setup",
   "homepage": "https://github.com/Financial-Times/next-ui-setup",
   "description": "Generic global set up of common styling dependencies",
-  "main": "main.scss",
+  "main": ["main.js", "main.scss"],
   "private": true,
   "ignore": [
     "bower_components"

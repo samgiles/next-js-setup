@@ -1,0 +1,17 @@
+{{#if @root.flags.analytics.isSwitchedOn}}
+	{{#if @root.flags.javascript.isSwitchedOn}}
+	<script>
+		var FT = window.FT || {};
+		FT.Properties = FT.Properties || {};
+		{{#if __isProduction}}
+			FT.Properties.ENV = 'p';
+		{{else}}
+			FT.Properties.ENV = 't';
+		{{/if}}
+	</script>
+	<noscript>
+	{{/if}}
+	<img alt="" border="0" width="1" height="1" src="//track.ft.com/track/track.js?javascript=disabled"/>
+	<img alt="" border="0" width="1" height="1" src="//stats.ft.com/si/track.gif?WT.js=No"/>
+	{{#if @root.flags.javascript.isSwitchedOn}}</noscript>{{/if}}
+{{/if}}
