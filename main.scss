@@ -1,24 +1,26 @@
+$_next-ui-setup-second-pass: false !default;
+
 body,
 html {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 @import "next-colors/main";
 
 @import "o-assets/main";
 @include oAssetsSetModulePaths((
-	o-ft-icons: '//build.origami.ft.com/files/o-ft-icons@2.3.4'
+    o-ft-icons: '//build.origami.ft.com/files/o-ft-icons@2.3.4'
 ));
 @import "o-ft-icons/main";
 @include oFtIconsFontFace();
 .icon {
-	@include oFtIconsBaseIconStyles();
+    @include oFtIconsBaseIconStyles();
 }
 
 /* remove icons until o-icons is fixed in the buildservice */
 [class*="icon"] {
-	display: none;
+    display: none;
 }
 
 @import "o-fonts/main";
@@ -32,6 +34,12 @@ $fontSans: MetricWeb, Arial, sans-serif !default;
 $fontSerif: Georgia, Times New Roman, serif !default;
 $fontBrand: FinancierDisplayWeb, Georgia, serif !default;
 
-$o-grid-is-silent: false;
+
+@if $_next-ui-setup-second-pass == false {
+    $o-grid-is-silent: false !global;
+}
+
 $o-grid-mode: snappy;
 @import "o-grid/main";
+
+$_next-ui-setup-second-pass: true;
