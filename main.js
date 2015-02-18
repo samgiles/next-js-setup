@@ -1,3 +1,4 @@
+/*jshint node:true*/
 'use strict';
 
 var flags = require('next-feature-flags-client');
