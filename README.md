@@ -1,12 +1,14 @@
-# next-ui-setup [![Build Status](https://travis-ci.org/Financial-Times/next-ui-setup.svg?branch=js)](https://travis-ci.org/Financial-Times/next-ui-setup)
+# next-js-setup [![Build Status](https://travis-ci.org/Financial-Times/next-js-setup.svg?branch=js)](https://travis-ci.org/Financial-Times/next-js-setup)
 
-Generic global set up of dependencies e.g. icons, fonts, buttons, typography
+Generic global set up of shared js dependencies
 
- - imports next-colors variables
- - assigns generic icon styles to the `.icon` class and points to build service for the icon font
- - imports fonts and sets up variables `$fontSans, $fontSerif, $fontBrand`
- - imports o-grid in non-silent mode
  - Setting up of raven error reporting
  - Sets up tracking
 
- This module is generally intended for direct consumption by applications (and should be included before all other sass) but the sass may be included as a dependency of modules without any adverse effects.
+ This module is only for direct consumption by applications.
+
+ ```js
+
+ require('next-js-setup').init()
+
+ ```

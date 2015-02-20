@@ -1,17 +1,11 @@
 {
-  "name": "next-ui-setup",
-  "homepage": "https://github.com/Financial-Times/next-ui-setup",
-  "description": "Generic global set up of common styling dependencies",
-  "main": ["main.js", "main.scss"],
+  "name": "next-js-setup",
+  "homepage": "https://github.com/Financial-Times/next-js-setup",
+  "description": "Generic global set up of common js features",
+  "main": "main.js",
   "private": true,
   "ignore": [
     "bower_components"
   ],
-  "dependencies": {
-    "next-colors": "^1.0.1",
-    "o-fonts": "^1.6.0",
-    "o-assets": "^1.0.0",
-    "o-grid": "^3.0.0",
-    "o-ft-icons": "2.3.4"
-  }
+  "dependencies": {}
 }
