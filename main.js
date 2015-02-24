@@ -1,6 +1,9 @@
 /*jshint node:true*/
 'use strict';
 
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
+
 var flags = require('next-feature-flags-client');
 var Raven = require('./src/raven');
 

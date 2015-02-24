@@ -7,5 +7,9 @@
   "ignore": [
     "bower_components"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "es6-promise": "~2.0.1",
+    "isomorphic-fetch": "^1.1.0",
+    "next-feature-flags-client": "https://github.com/Financial-Times/next-feature-flags-client.git#^v3.0.0"
+  }
 }
