@@ -6,9 +6,11 @@ require('isomorphic-fetch');
 
 var flags = require('next-feature-flags-client');
 var Raven = require('./src/raven');
+var userPrefs = require('next-user-preferences');
 
 function init() {
-	flags.init().then(function() {
+
+	return flags.setUrl('/__flags.json').init().then(function() {
 
 		if (flags.get('clientErrorReporting').isSwitchedOn) {
 			Raven.config('https://edb56e86be2446eda092e69732d8654b@app.getsentry.com/32594').install();
@@ -21,6 +23,7 @@ function init() {
 			require('./src/tracking');
 		}
 
+		return flags;
 	});
 }
 
