@@ -1,11 +1,17 @@
-var Track = require('./ft-tracking');
+module.exports = {
+	init: function () {
 
-function sendNextChannel() {
-	if(Track && Track.IJento) {
-		Track.IJento.getSiTracker().addTrackParam('channel', 'next');
-		Track.IJento.getSiTracker().sendTrackParams();
+		var Track = require('./ft-tracking');
+
+		function sendNextChannel() {
+			if(Track && Track.IJento) {
+				Track.IJento.getSiTracker().addTrackParam('channel', 'next');
+				Track.IJento.getSiTracker().sendTrackParams();
+			}
+		}
+
+		sendNextChannel();
+		require('./attention-time').init();
+
 	}
 }
-
-sendNextChannel();
-require('./attention-time').init();
