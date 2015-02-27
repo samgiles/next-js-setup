@@ -1,4 +1,4 @@
-
+/* jshint ignore:start */
 var Track=(function(){return{version:"ft-tracking 1.2.5",addAndSendAdditionalTrackParams:function(qs){Track.IJento.addAndSendAdditionalTrackParams(qs);},debug:function(){return{"ijento-env":Track.IJento.getEnv(),"ijento-params":Track.IJento.getParams()};}};}());Track.Util=(function(){return{isHttps:function(){return'https:'===document.location.protocol;},getProtocol:function(){return Track.Util.isHttps()?"https://":"http://";},getScriptAsync:function(src){var t=document.createElement('script'),s;t.type='text/javascript';t.async=true;t.src=src;s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(t,s);},getValueFromCookie:function(matcher){return document.cookie.match(matcher)&&RegExp.$1!==""&&RegExp.$1!=="null"?RegExp.$1:null;},getValueFromUrl:function(matcher){return document.location.href.match(matcher)&&RegExp.$1!==""?RegExp.$1:null;},getValueFromJsVariable:function(str){if(typeof str!=="string"){return null;}
 var i,namespaces=str.split('.'),test=window;for(i=0;i<namespaces.length;i=i+1){if(typeof test[namespaces[i]]==="undefined"){return null;}
 test=test[namespaces[i]];}
@@ -49,3 +49,4 @@ function SiSendAdditionalTracer(a,b){si.sendAdditionalTracer(a,b);}
 function SiTrackPage(a){si.trackPage(a);};if(typeof define==="function"){define("track",[],function(){return Track;});};
 
 module.exports = Track;
+/* jshint ignore:end */

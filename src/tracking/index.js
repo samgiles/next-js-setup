@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
 	init: function () {
 
@@ -14,4 +16,4 @@ module.exports = {
 		require('./attention-time').init();
 
 	}
-}
+};

@@ -53,7 +53,7 @@ JsSetup.prototype.init = function (opts) {
 
 		return {
 			flags: flags
-		}
+		};
 	}.bind(this));
 };
 

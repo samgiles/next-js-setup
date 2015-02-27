@@ -1,0 +1,35 @@
+{
+  "name": "next-js-setup",
+  "version": "0.0.0",
+  "description": "Sets up various js features needed by all next user facing applications",
+  "main": "main.js",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "karma-browserify": "^3.0.3",
+    "debowerify": "^1.2.0",
+    "chai": "^2.1.0",
+    "karma": "^0.12.31",
+    "karma-mocha": "^0.1.10",
+    "karma-chai": "^0.1.0",
+    "karma-html-reporter": "^0.2.6",
+    "karma-chrome-launcher": "^0.1.7",
+    "sinon": "^1.12.2",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "mocha": "^2.1.0"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Financial-Times/next-js-setup.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Financial-Times/next-js-setup/issues"
+  },
+  "homepage": "https://github.com/Financial-Times/next-js-setup"
+}
