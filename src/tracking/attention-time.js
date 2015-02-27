@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 var Track = require('./ft-tracking');
 
 var totalAttentionTime = 0,
@@ -126,3 +127,4 @@ if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and 
 module.exports = {
 	init: init
 }
+/* jshint ignore:end */
