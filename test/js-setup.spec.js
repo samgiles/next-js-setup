@@ -8,7 +8,6 @@ var flagsClient = require('next-feature-flags-client');
 var Raven = require('../src/raven');
 var userPrefs = require('next-user-preferences');
 var beacon = require('next-beacon-component');
-var tracking = require('../src/tracking');
 
 var ravenCaptureException = Raven.captureException;
 
@@ -85,17 +84,6 @@ describe('js setup', function() {
 			});
 		});
 
-		it('should not init tracking', function (done) {
-			var spy = sinon.stub(tracking, 'init');
-			var promise = new JsSetup().init({__testmode: true});
-			server.respond();
-			promise.then(function () {
-				expect(spy.called).not.to.be.true;
-				spy.restore();
-				done();
-			});
-		});
-
 		it('should not init user userPreferences', function (done) {
 			var spy = sinon.stub(userPrefs, 'init');
 			var promise = new JsSetup().init({__testmode: true});
@@ -161,21 +149,6 @@ describe('js setup', function() {
 				expect(setup.raven.captureMessage).to.equal(setup.raven.captureMessage);
 				expect(setup.raven.captureException).not.to.equal(JsSetup.noop);
 				spy.restore();
-				done();
-			});
-		});
-
-		it('should init tracking', function (done) {
-			var ravenStub = sinon.stub(Raven, 'config', function () {
-				return {install: function () {}};
-			});
-			var spy = sinon.stub(tracking, 'init');
-			var promise = new JsSetup().init({__testmode: true});
-			server.respond();
-			promise.then(function () {
-				expect(spy.called).to.be.true;
-				spy.restore();
-				ravenStub.restore();
 				done();
 			});
 		});

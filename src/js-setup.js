@@ -5,7 +5,6 @@ var flags = require('next-feature-flags-client');
 var Raven = require('./raven');
 var userPrefs = require('next-user-preferences');
 var beacon = require('next-beacon-component');
-var tracking = require('./tracking');
 
 var JsSetup = function () {};
 
@@ -38,10 +37,6 @@ JsSetup.prototype.init = function (opts) {
 		}
 
 		this.raven = Raven;
-
-		if (flags.get('analytics').isSwitchedOn) {
-			tracking.init();
-		}
 
 		if (flags.get('userPreferences').isSwitchedOn) {
 			userPrefs.init(opts.userPreferences);
