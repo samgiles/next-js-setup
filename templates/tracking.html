@@ -4,6 +4,7 @@
 			if (!loc.pathname) {
 				return;
 			}
+			// http://stackoverflow.com/questions/236073/why-split-the-script-tag-when-writing-it-with-document-write
 			var js = '<script src="/__ijento/' + loc.pathname.slice(1) + '"><\/script>';
 			document.write(js);
 		})(location);
