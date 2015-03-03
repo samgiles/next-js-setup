@@ -4,7 +4,7 @@
 			if (!loc.pathname) {
 				return;
 			}
-			var js = '<script src="/__ijento/' + loc.pathname.slice(1) + '"></script>';
+			var js = '<script src="/__ijento/' + loc.pathname.slice(1) + '"><\/script>';
 			document.write(js);
 		})(location);
 	</script>
