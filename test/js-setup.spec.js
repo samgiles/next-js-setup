@@ -36,10 +36,6 @@ var flags = {
 
 describe('js setup', function() {
 
-	it('should polyfill es6 Promise', function () {
-		expect(window.Promise).to.be.a('function');
-	});
-
 	it('should polyfill fetch', function () {
 		expect(window.fetch).to.be.a('function');
 	});
