@@ -8,7 +8,6 @@
     "bower_components"
   ],
   "dependencies": {
-    "es6-promise": "~2.0.1",
     "isomorphic-fetch": "^1.1.0",
     "next-feature-flags-client": "https://github.com/Financial-Times/next-feature-flags-client.git#^v5.0.0",
     "next-user-preferences": "https://github.com/Financial-Times/next-user-preferences.git#^v4.0.0",

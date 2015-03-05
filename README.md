@@ -4,7 +4,7 @@ Set up of shared js dependencies
 
  - Sets up of raven error reporting
  - Sets up tracking
- - polyfills Promise and fetch
+ - polyfills fetch
  - initialises feature flags
  - initialises the user preferences api client
  - initialises the beacon client
