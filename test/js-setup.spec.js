@@ -44,7 +44,11 @@ describe('js setup', function() {
 		expect(jsSetup.init).to.be.a('function');
 	});
 
-	describe('flags off', function () {
+	it('should have an bootstrap method', function () {
+		expect(jsSetup.bootstrap).to.be.a('function');
+	});
+
+	describe('init with flags off', function () {
 		var server;
 		beforeEach(function () {
 			Raven.captureException = ravenCaptureException;
@@ -116,7 +120,7 @@ describe('js setup', function() {
 		});
 	});
 
-	describe('flags on', function () {
+	describe('init with flags on', function () {
 		var server;
 		var flagStub;
 		beforeEach(function () {
@@ -195,6 +199,64 @@ describe('js setup', function() {
 				done();
 			});
 		});
+	});
 
+	describe('bootstrap', function () {
+		var result = {};
+		beforeEach(function () {
+			sinon.stub(jsSetup, 'init', function () {
+				return Promise.resolve(result);
+			});
+		});
+
+		afterEach(function () {
+			window.ftNextInitCalled = undefined;
+			document.querySelector('html').classList.remove('js-success');
+			jsSetup.init.restore();
+		});
+
+		it('should wait for polyfills to load if ftNextInit not called', function (done) {
+			var callback = sinon.stub();
+			jsSetup.bootstrap(callback).then(function () {
+				expect(callback.calledOnce).to.be.false;
+			});
+
+			document.dispatchEvent(new Event('polyfillsLoaded'));
+
+			setTimeout(function () {
+				expect(callback.calledOnce).to.be.true;
+				expect(callback.calledWith(result)).to.be.true;
+				done();
+			}, 0);
+		});
+
+		it('should run a callback with result of init immediately if ftNextInit already called', function (done) {
+			window.ftNextInitCalled = true;
+			var callback = sinon.stub();
+			jsSetup.bootstrap(callback).then(function () {
+				expect(callback.calledOnce).to.be.true;
+				expect(callback.calledWith(result)).to.be.true;
+				done();
+			});
+		});
+
+		it('should add js-success class if callback executes ok', function (done) {
+			window.ftNextInitCalled = true;
+			jsSetup.bootstrap(function () {	}).then(function () {
+				expect(document.querySelector('html').classList.contains('js-success')).to.be.true;
+				done();
+			});
+		});
+
+		it('should not add js-success class if callback fails', function (done) {
+			window.ftNextInitCalled = true;
+			jsSetup.bootstrap(function () {
+				throw 'error';
+			})
+			.catch(function () {
+				expect(document.querySelector('html').classList.contains('js-success')).to.be.false;
+				done();
+			});
+		});
 	});
 });

@@ -52,4 +52,23 @@ JsSetup.prototype.init = function (opts) {
 	}.bind(this));
 };
 
+JsSetup.prototype.bootstrap = function (callback) {
+	var go = function () {
+		return this.init().then(function (result) {
+			callback(result);
+			document.querySelector('html').classList.add('js-success');
+		});
+	}.bind(this);
+
+	var waitThenGo = function () {
+		return new Promise(function (resolve, reject) {
+			document.addEventListener('polyfillsLoaded', function () {
+				resolve(go());
+			});
+		});
+	};
+
+	return window.ftNextInitCalled ? go() : waitThenGo();
+};
+
 module.exports = JsSetup;
