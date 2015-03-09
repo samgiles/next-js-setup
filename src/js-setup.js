@@ -52,9 +52,10 @@ JsSetup.prototype.init = function (opts) {
 	}.bind(this));
 };
 
-JsSetup.prototype.bootstrap = function (callback) {
+JsSetup.prototype.bootstrap = function (callback, opts) {
+
 	var go = function () {
-		return this.init().then(function (result) {
+		return this.init(opts).then(function (result) {
 			callback(result);
 			document.querySelector('html').classList.add('js-success');
 		});

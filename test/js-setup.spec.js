@@ -240,6 +240,16 @@ describe('js setup', function() {
 			});
 		});
 
+		it('should pass an options object to init', function (done) {
+			window.ftNextInitCalled = true;
+			var callback = sinon.stub();
+			var options = {};
+			jsSetup.bootstrap(callback, options).then(function () {
+				expect(jsSetup.init.calledWith(options)).to.be.true;
+				done();
+			});
+		});
+
 		it('should add js-success class if callback executes ok', function (done) {
 			window.ftNextInitCalled = true;
 			jsSetup.bootstrap(function () {	}).then(function () {
