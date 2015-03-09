@@ -16,7 +16,7 @@ module.exports = function(config) {
 
 		// list of files / patterns to load in the browser
 		files: [
-			'https://cdn.polyfill.io/v1/polyfill.min.js?features=Function.prototype.bind|always,modernizr:promises|always',
+			'https://cdn.polyfill.io/v1/polyfill.min.js?features=Function.prototype.bind|always,modernizr:promises|always,Event|always',
 			'test/js-setup.spec.js'
 		],
 
