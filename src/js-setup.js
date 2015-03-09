@@ -38,7 +38,7 @@ JsSetup.prototype.init = function (opts) {
 
 		this.raven = Raven;
 
-		if (flags.get('userPreferences').isSwitchedOn) {
+		if (flags.get('userPreferencesAPI').isSwitchedOn) {
 			userPrefs.init(opts.userPreferences);
 		}
 

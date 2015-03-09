@@ -22,7 +22,7 @@ var flags = {
 		"isSwitchedOff": false,
 		"isPastSellByDate": false,
 	},
-	"userPreferences": {
+	"userPreferencesAPI": {
 		"isPastSellByDate": false,
 		"isSwitchedOff": false,
 		"isSwitchedOn": true
