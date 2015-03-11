@@ -200,12 +200,28 @@ describe('js setup', function() {
 
 		it('should wait for polyfills to load if ftNextInit not called', function (done) {
 			var callback = sinon.stub();
-			jsSetup.bootstrap(callback).then(function () {
+			// can't assume promises exist to do async stuff
+			var p = window.Promise;
+			window.Promise = undefined;
+			jsSetup.bootstrap(callback);
+			setTimeout(function () {
 				expect(callback.calledOnce).to.be.false;
-			});
+				// now we can assume Promise is polyfilled
+				window.Promise = p;
+				document.dispatchEvent(new Event('polyfillsLoaded'));
+				setTimeout(function () {
+					expect(callback.calledOnce).to.be.true;
+					expect(callback.calledWith(result)).to.be.true;
+					done();
+				}, 0);
+			}, 0);
 
-			document.dispatchEvent(new Event('polyfillsLoaded'));
+		});
 
+		it('should run a callback with result of init immediately if ftNextInit already called', function (done) {
+			window.ftNextInitCalled = true;
+			var callback = sinon.stub();
+			jsSetup.bootstrap(callback);
 			setTimeout(function () {
 				expect(callback.calledOnce).to.be.true;
 				expect(callback.calledWith(result)).to.be.true;
@@ -213,43 +229,35 @@ describe('js setup', function() {
 			}, 0);
 		});
 
-		it('should run a callback with result of init immediately if ftNextInit already called', function (done) {
-			window.ftNextInitCalled = true;
-			var callback = sinon.stub();
-			jsSetup.bootstrap(callback).then(function () {
-				expect(callback.calledOnce).to.be.true;
-				expect(callback.calledWith(result)).to.be.true;
-				done();
-			});
-		});
-
 		it('should pass an options object to init', function (done) {
 			window.ftNextInitCalled = true;
 			var callback = sinon.stub();
 			var options = {};
-			jsSetup.bootstrap(callback, options).then(function () {
+			jsSetup.bootstrap(callback, options);
+			setTimeout(function () {
 				expect(jsSetup.init.calledWith(options)).to.be.true;
 				done();
-			});
+			}, 0);
 		});
 
 		it('should add js-success class if callback executes ok', function (done) {
 			window.ftNextInitCalled = true;
-			jsSetup.bootstrap(function () {	}).then(function () {
+			jsSetup.bootstrap(function () {});
+			setTimeout(function () {
 				expect(document.querySelector('html').classList.contains('js-success')).to.be.true;
 				done();
-			});
+			}, 0);
 		});
 
 		it('should not add js-success class if callback fails', function (done) {
 			window.ftNextInitCalled = true;
 			jsSetup.bootstrap(function () {
 				throw 'error';
-			})
-			.catch(function () {
+			});
+			setTimeout(function () {
 				expect(document.querySelector('html').classList.contains('js-success')).to.be.false;
 				done();
-			});
+			}, 0);
 		});
 	});
 });

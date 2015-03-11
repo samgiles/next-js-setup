@@ -57,21 +57,20 @@ JsSetup.prototype.init = function (opts) {
 JsSetup.prototype.bootstrap = function (callback, opts) {
 
 	var go = function () {
-		return this.init(opts).then(function (result) {
+		this.bootstrapResult = this.init(opts).then(function (result) {
 			callback(result);
 			document.querySelector('html').classList.add('js-success');
 		});
 	}.bind(this);
 
 	var waitThenGo = function () {
-		return new Promise(function (resolve, reject) {
-			document.addEventListener('polyfillsLoaded', function () {
-				resolve(go());
-			});
+		document.addEventListener('polyfillsLoaded', function () {
+			go();
 		});
 	};
 
-	return window.ftNextInitCalled ? go() : waitThenGo();
+	window.ftNextInitCalled ? go() : waitThenGo();
 };
+
 
 module.exports = JsSetup;
