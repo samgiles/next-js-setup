@@ -39,7 +39,9 @@ JsSetup.prototype.init = function (opts) {
 		this.raven = Raven;
 
 		if (flags.get('userPreferencesAPI').isSwitchedOn) {
-			userPrefs.init(opts.userPreferences);
+			var userPrefsOpts = opts.userPreferences || {};
+			userPrefsOpts.flags = flags;
+			userPrefs.init(userPrefsOpts);
 		}
 
 		if (flags.get('beacon').isSwitchedOn) {

@@ -11,29 +11,6 @@ var beacon = require('next-beacon-component');
 
 var ravenCaptureException = Raven.captureException;
 
-var flags = {
-	"clientErrorReporting": {
-		"isSwitchedOn": true,
-		"isSwitchedOff": false,
-		"isPastSellByDate": false,
-	},
-	"analytics": {
-		"isSwitchedOn": true,
-		"isSwitchedOff": false,
-		"isPastSellByDate": false,
-	},
-	"userPreferencesAPI": {
-		"isPastSellByDate": false,
-		"isSwitchedOff": false,
-		"isSwitchedOn": true
-	},
-	"beacon": {
-		"isPastSellByDate": false,
-		"isSwitchedOff": false,
-		"isSwitchedOn": true
-	}
-};
-
 describe('js setup', function() {
 
 	it('should polyfill fetch', function () {
@@ -126,9 +103,13 @@ describe('js setup', function() {
 		beforeEach(function () {
 			Raven.captureException = ravenCaptureException;
 			server = sinon.fakeServer.create();
-			server.respondWith("GET", "/__flags.json", [200, { "Content-Type": "application/json" }, JSON.stringify(flags)]);
+			server.respondWith("GET", "/__flags.json", [200, { "Content-Type": "application/json" }, JSON.stringify([])]);
 			flagStub = sinon.stub(flagsClient, 'get', function (name) {
-				return flags[name];
+				return {
+					isSwitchedOn: true,
+					isSwitchedOff: false,
+					isPastSellByDate: false,
+				};
 			});
 		});
 
@@ -153,15 +134,17 @@ describe('js setup', function() {
 			});
 		});
 
-		it('should init user userPreferences', function (done) {
+		it('should init user userPreferences and pass in flags', function (done) {
 			var ravenStub = sinon.stub(Raven, 'config', function () {
 				return {install: function () {}};
 			});
 			var spy = sinon.stub(userPrefs, 'init');
-			var promise = new JsSetup().init({__testmode: true});
+			var promise = new JsSetup().init({__testmode: true, userPreferences: {user: 'prefs'}});
 			server.respond();
 			promise.then(function () {
 				expect(spy.called).to.be.true;
+				expect(spy.getCall(0).args[0].user).to.equal('prefs');
+				expect(spy.getCall(0).args[0].flags).to.exist;
 				spy.restore();
 				ravenStub.restore();
 				done();
