@@ -5,6 +5,7 @@ var flags = require('next-feature-flags-client');
 var Raven = require('./raven');
 var userPrefs = require('next-user-preferences');
 var beacon = require('next-beacon-component');
+var welcome = require('next-welcome');
 
 var JsSetup = function () {};
 
@@ -46,6 +47,10 @@ JsSetup.prototype.init = function (opts) {
 
 		if (flags.get('beacon').isSwitchedOn) {
 			beacon.init && beacon.init(opts.beacon);
+		}
+
+		if (flags.get('welcomePanel').isSwitchedOn) {
+			welcome.init();
 		}
 
 		return {
