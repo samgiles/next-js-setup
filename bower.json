@@ -13,8 +13,5 @@
     "next-user-preferences": "https://github.com/Financial-Times/next-user-preferences.git#^v4.2.5",
     "next-beacon-component": "https://github.com/Financial-Times/next-beacon-component.git#~0.7.14",
     "next-welcome": "https://github.com/Financial-Times/next-welcome.git#^1.1.0"
-  },
-  "resolutions": {
-    "next-user-model-component": "e-tag:f42da266a"
   }
 }
