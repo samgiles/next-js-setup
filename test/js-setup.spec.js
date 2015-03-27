@@ -249,54 +249,70 @@ describe('js setup', function() {
 			}, 0);
 		});
 
-		it('should not add js-success class if callback fails', function (done) {
-			window.ftNextInitCalled = true;
-			jsSetup.bootstrap(function () {
-				throw 'error';
-			});
-			setTimeout(function () {
-				expect(document.querySelector('html').classList.contains('js-success')).to.be.false;
-				done();
-			}, 0);
-		});
-
 		it('should add js-success class if callback returns resolved promise', function (done) {
 			window.ftNextInitCalled = true;
 			jsSetup.bootstrap(function () {
 				return Promise.resolve();
 			});
 			setTimeout(function () {
-				setTimeout(function () {
+				jsSetup.bootstrapResult.then(function () {
 					expect(document.querySelector('html').classList.contains('js-success')).to.be.true;
 					done();
-				}, 0);
+				});
 			}, 0);
 		});
 
-		it('should not add js-success class if callback returns rejected promise', function (done) {
-			window.ftNextInitCalled = true;
-			jsSetup.bootstrap(function () {
-				return Promise.reject();
-			});
-			setTimeout(function () {
-				setTimeout(function () {
-					expect(document.querySelector('html').classList.contains('js-success')).to.be.false;
-					done();
-				}, 0);
-			}, 0);
-		});
+		describe('Error handling', function () {
 
-		it('should not add js-success class if callback returns hanging promise', function (done) {
-			window.ftNextInitCalled = true;
-			jsSetup.bootstrap(function () {
-				return new Promise(function (){});
+			beforeEach(function () {
+				sinon.stub(jsSetup, '_throw');
 			});
-			setTimeout(function () {
+
+			afterEach(function () {
+				jsSetup._throw.restore();
+			});
+
+			it('should not add js-success class and throw global error if callback fails', function (done) {
+				window.ftNextInitCalled = true;
+				jsSetup.bootstrap(function () {
+					throw 'error';
+				});
 				setTimeout(function () {
-					expect(document.querySelector('html').classList.contains('js-success')).to.be.false;
-					done();
+					jsSetup.bootstrapResult.then(function () {
+						expect(document.querySelector('html').classList.contains('js-success')).to.be.false;
+						expect(jsSetup._throw.called).to.be.true;
+						done();
+					});
 				}, 0);
-			}, 0);
+			});
+
+			it('should not add js-success class and throw global error if callback returns rejected promise', function (done) {
+				window.ftNextInitCalled = true;
+				jsSetup.bootstrap(function () {
+					return Promise.reject();
+				});
+				setTimeout(function () {
+					jsSetup.bootstrapResult.then(function () {
+						expect(document.querySelector('html').classList.contains('js-success')).to.be.false;
+						expect(jsSetup._throw.called).to.be.true;
+						done();
+					});
+				}, 0);
+			});
+
+			it('should not add js-success class if callback returns hanging promise', function (done) {
+				window.ftNextInitCalled = true;
+				jsSetup.bootstrap(function () {
+					return new Promise(function (){});
+				});
+				setTimeout(function () {
+					setTimeout(function () {
+						expect(document.querySelector('html').classList.contains('js-success')).to.be.false;
+						expect(jsSetup._throw.called).to.be.false;
+						done();
+					}, 0);
+				}, 0);
+			});
 		});
 	});
 });
