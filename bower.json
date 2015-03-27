@@ -15,6 +15,6 @@
     "next-welcome": "https://github.com/Financial-Times/next-welcome.git#^1.1.0"
   },
   "resolutions": {
-    "next-user-model-component": "e-tag:f42da266a"
+    "o-ft-icons": "next"
   }
 }

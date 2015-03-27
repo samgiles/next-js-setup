@@ -259,5 +259,44 @@ describe('js setup', function() {
 				done();
 			}, 0);
 		});
+
+		it('should add js-success class if callback returns resolved promise', function (done) {
+			window.ftNextInitCalled = true;
+			jsSetup.bootstrap(function () {
+				return Promise.resolve();
+			});
+			setTimeout(function () {
+				setTimeout(function () {
+					expect(document.querySelector('html').classList.contains('js-success')).to.be.true;
+					done();
+				}, 0);
+			}, 0);
+		});
+
+		it('should not add js-success class if callback returns rejected promise', function (done) {
+			window.ftNextInitCalled = true;
+			jsSetup.bootstrap(function () {
+				return Promise.reject();
+			});
+			setTimeout(function () {
+				setTimeout(function () {
+					expect(document.querySelector('html').classList.contains('js-success')).to.be.false;
+					done();
+				}, 0);
+			}, 0);
+		});
+
+		it('should not add js-success class if callback returns hanging promise', function (done) {
+			window.ftNextInitCalled = true;
+			jsSetup.bootstrap(function () {
+				return new Promise(function (){});
+			});
+			setTimeout(function () {
+				setTimeout(function () {
+					expect(document.querySelector('html').classList.contains('js-success')).to.be.false;
+					done();
+				}, 0);
+			}, 0);
+		});
 	});
 });

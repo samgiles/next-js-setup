@@ -61,10 +61,18 @@ JsSetup.prototype.init = function (opts) {
 
 JsSetup.prototype.bootstrap = function (callback, opts) {
 
+	var success = function () {
+		document.documentElement.classList.add('js-success');
+	};
+
 	var go = function () {
 		this.bootstrapResult = this.init(opts).then(function (result) {
-			callback(result);
-			document.querySelector('html').classList.add('js-success');
+			var promise = callback(result);
+			if (promise && typeof promise.then === 'function') {
+				promise.then(success);
+			} else {
+				success();
+			}
 		});
 	}.bind(this);
 
