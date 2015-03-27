@@ -69,9 +69,15 @@ JsSetup.prototype.bootstrap = function (callback, opts) {
 		this.bootstrapResult = this.init(opts).then(function (result) {
 			var promise = callback(result);
 			if (promise && typeof promise.then === 'function') {
-				promise.then(success);
+				return promise.then(success);
 			} else {
 				success();
+			}
+		}).catch(function (err) {
+			if (result.flags.get('clientErrorReporting').isSwitchedOn) {
+				setTimeout(function () {
+					throw err;
+				}, 0);
 			}
 		});
 	}.bind(this);
