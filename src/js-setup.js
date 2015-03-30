@@ -66,14 +66,16 @@ JsSetup.prototype.bootstrap = function (callback, opts) {
 	};
 
 	var go = function () {
+		var flags;
 		this.bootstrapResult = this.init(opts).then(function (result) {
+			flags = result.flags;
 			var promise = callback(result);
 			if (promise && typeof promise.then === 'function') {
-				promise.then(success);
+				return promise.then(success);
 			} else {
 				success();
 			}
-		});
+		}).catch(this._throw);
 	}.bind(this);
 
 	var waitThenGo = function () {
@@ -85,5 +87,11 @@ JsSetup.prototype.bootstrap = function (callback, opts) {
 	window.ftNextInitCalled ? go() : waitThenGo();
 };
 
+
+JsSetup.prototype._throw = function (err) {
+	setTimeout(function () {
+		throw err;
+	}, 0);
+};
 
 module.exports = JsSetup;
