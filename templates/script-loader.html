@@ -1,0 +1,36 @@
+<script>
+
+    function ftNextInit(){
+        var event;
+        try{
+            event = new Event('polyfillsLoaded');
+        }catch(e){
+            event = document.createEvent('Event');
+            event.initEvent('polyfillsLoaded', true, true);
+        }
+        window.ftNextInitCalled = true;
+        document.dispatchEvent(event);
+    }
+
+    (function (scripts) {
+
+        if(!cutsTheMustard){
+            return;
+        }
+
+        function addScript(src){
+            var o = document.createElement('script');
+            o.async = o.defer = true;
+            o.src = src;
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(o, s.nextSibling);
+        }
+
+        for(var i= 0, l=scripts.length; i<l; i++){
+            addScript(scripts[i]);
+        }
+    }([
+	'{{#hashedAsset}}main.js{{/hashedAsset}}',
+        '//polyfill.webservices.ft.com/v1/polyfill.min.js?callback=ftNextInit&libVersion=v1.3.0&features=default,modernizr:promises,matchMedia,_enqueueMicrotask|always'
+    ]));
+</script>
