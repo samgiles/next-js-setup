@@ -41,7 +41,7 @@ This module contains code to run the standard next cut the mustard test, polyfil
 require('next-js-setup').bootstrap(callback, options);
 ```
 
-Where callback is a function that starts your app and takes a single parameter which is the object the init promise resolves with.
+Where callback is a function that starts your app and will be passed the result of `init()` as its first parameter. If callback returns a promise all post init actions (e.g. adding a `js-success` class to html) will be deferred until that promise resolves (useful for applications which contain a significant amount of asynchronous initialisation)
 
 #### html
 
