@@ -33,13 +33,21 @@ Where options can have properties `userPreferences`, `beacon` which can be used 
 
 ### bootstrap
 
-When next-mustard is used by your app to handle cutting the mustard, polyfill loading etc. the boostrap method should be used
+This module contains code to run the standard next cut the mustard test, polyfill missing features and run your application code.
+
+#### javascript
 
 ```js
 require('next-js-setup').bootstrap(callback, options);
 ```
 
-Where callback is a function that starts your app and takes a single parameter which is the object the init promise resolves with.
+Where callback is a function that starts your app and will be passed the result of `init()` as its first parameter. If callback returns a promise all post init actions (e.g. adding a `js-success` class to html) will be deferred until that promise resolves (useful for applications which contain a significant amount of asynchronous initialisation)
 
+#### html
 
-This module is mainly for direct consumption by applications, and `init()` should never be called within a component
+Include `{{>next-js-setup/templates/ctm}}` in the `<head>` and `{{>next-js-setup/templates/script-loader}}` just before the closing `</body>` tag
+
+## Tracking
+
+Include `{{>next-js-setup/templates/tracking}}` just before the closing `</body>` tag
+
