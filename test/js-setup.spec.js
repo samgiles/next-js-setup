@@ -25,6 +25,10 @@ describe('js setup', function() {
 		expect(jsSetup.bootstrap).to.be.a('function');
 	});
 
+	it('should stub console, if applicable', function () {
+		expect(window.console).to.be.an('object');
+	});
+
 	describe('init with flags off', function () {
 		var server;
 		beforeEach(function () {

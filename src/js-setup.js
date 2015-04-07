@@ -1,6 +1,7 @@
 /*jshint node:true*/
 'use strict';
 
+require('./stubs').init();
 var flags = require('next-feature-flags-client');
 var Raven = require('./raven');
 var userPrefs = require('next-user-preferences');
