@@ -16,7 +16,8 @@
     "next-myft-ui": "Financial-Times/next-myft-ui#^1.0.0",
     "next-user-preferences": "https://github.com/Financial-Times/next-user-preferences.git#^v5.0.0",
     "next-welcome": "https://github.com/Financial-Times/next-welcome.git#^1.1.0",
-    "fastclick": "~1.0.6"
+    "fastclick": "^1.0.6",
+    "o-hoverable": "^1.1.0"
   },
   "resolutions": {
     "o-ft-icons": "next"

@@ -10,6 +10,7 @@ var myFtUi = require('next-myft-ui');
 var beacon = require('next-beacon-component');
 var welcome = require('next-welcome');
 var attachFastClick = require('fastclick');
+var hoverable = require('o-hoverable');
 
 var JsSetup = function () {};
 
@@ -31,6 +32,7 @@ JsSetup.prototype.init = function (opts) {
 	}
 
 	attachFastClick(document.body);
+	hoverable.init();
 
 	return flags.init().then(function() {
 
