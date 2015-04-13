@@ -9,6 +9,7 @@ var myFtClient = require('next-myft-client');
 var myFtUi = require('next-myft-ui');
 var beacon = require('next-beacon-component');
 var welcome = require('next-welcome');
+var attachFastClick = require('fastclick');
 
 var JsSetup = function () {};
 
@@ -28,6 +29,8 @@ JsSetup.prototype.init = function (opts) {
 			throw(e);
 		}
 	}
+
+	attachFastClick(document.body);
 
 	return flags.init().then(function() {
 
