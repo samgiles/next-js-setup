@@ -20,20 +20,10 @@ JsSetup.prototype.init = function (opts) {
 	// may be used for app specific config in future
 	opts = opts || {};
 
-	try {
-		flags._setUrl(opts.flagsUrl || '/__flags.json');
-	} catch(e) {
-		if (opts.__testmode) {
-			// safely ignore
-		} else {
-			throw(e);
-		}
-	}
-
 	attachFastClick(document.body);
 	hoverable.init();
 
-	return flags.init().then(function() {
+	return flags.init({ url: opts.flagsUrl || '/__flags.json' }).then(function() {
 
 		if (flags.get('clientErrorReporting')) {
 			Raven.config('https://edb56e86be2446eda092e69732d8654b@app.getsentry.com/32594').install();
