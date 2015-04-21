@@ -4,7 +4,6 @@
 require('./stubs').init();
 var flags = require('next-feature-flags-client');
 var Raven = require('./raven');
-var userPrefs = require('next-user-preferences');
 var myFtClient = require('next-myft-client');
 var myFtUi = require('next-myft-ui');
 var beacon = require('next-beacon-component');
@@ -48,11 +47,6 @@ JsSetup.prototype.init = function (opts) {
 		this.raven = Raven;
 
 		if (flags.get('userPreferencesAPI').isSwitchedOn) {
-
-			// TODO: remove this once new myft-client and ui rolled out everywhere
-			var userPrefsOpts = opts.userPreferences || {};
-			userPrefsOpts.flags = flags;
-			userPrefs.init(userPrefsOpts);
 
 			var myFtOpts = opts.myFtOpts || {};
 			myFtOpts.follow = flags.get('follow').isSwitchedOn;

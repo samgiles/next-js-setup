@@ -6,7 +6,8 @@ var JsSetup = require('../src/js-setup');
 var sinon = require('sinon');
 var flagsClient = require('next-feature-flags-client');
 var Raven = require('../src/raven');
-var userPrefs = require('next-user-preferences');
+var myFtClient = require('next-myft-client');
+var myFtUi = require('next-myft-ui');
 var beacon = require('next-beacon-component');
 
 var ravenCaptureException = Raven.captureException;
@@ -65,17 +66,21 @@ describe('js setup', function() {
 			});
 		});
 
-		it('should not init user userPreferences', function (done) {
-			var spy = sinon.stub(userPrefs, 'init');
+		it('should not init myft', function (done) {
+			var spy1 = sinon.stub(myFtClient, 'init');
+			var spy2 = sinon.stub(myFtUi, 'init');
 			var promise = new JsSetup().init({__testmode: true});
 			server.respond();
 			promise.then(function () {
-				expect(spy.called).not.to.be.true;
-				spy.restore();
+				expect(spy1.called).not.to.be.true;
+				expect(spy2.called).not.to.be.true;
+				spy1.restore();
+				spy2.restore();
 				done();
 			});
 
 		});
+
 
 		// beacon.init not defined yet
 		xit('should not init beacon', function (done) {
@@ -138,18 +143,19 @@ describe('js setup', function() {
 			});
 		});
 
-		it('should init user userPreferences and pass in flags', function (done) {
+		it('should init myft', function (done) {
 			var ravenStub = sinon.stub(Raven, 'config', function () {
 				return {install: function () {}};
 			});
-			var spy = sinon.stub(userPrefs, 'init');
+			var spy1 = sinon.stub(myFtClient, 'init');
+			var spy2 = sinon.stub(myFtUi, 'init');
 			var promise = new JsSetup().init({__testmode: true, userPreferences: {user: 'prefs'}});
 			server.respond();
 			promise.then(function () {
-				expect(spy.called).to.be.true;
-				expect(spy.getCall(0).args[0].user).to.equal('prefs');
-				expect(spy.getCall(0).args[0].flags).to.exist;
-				spy.restore();
+				expect(spy1.called).to.be.true;
+				expect(spy2.called).to.be.true;
+				spy1.restore();
+				spy2.restore();
 				ravenStub.restore();
 				done();
 			});
