@@ -113,13 +113,7 @@ describe('js setup', function() {
 			Raven.captureException = ravenCaptureException;
 			server = sinon.fakeServer.create();
 			server.respondWith("GET", "/__flags.json", [200, { "Content-Type": "application/json" }, JSON.stringify([])]);
-			flagStub = sinon.stub(flagsClient, 'get', function (name) {
-				return {
-					isSwitchedOn: true,
-					isSwitchedOff: false,
-					isPastSellByDate: false,
-				};
-			});
+			flagStub = sinon.stub(flagsClient, 'get', function(name) { return true; });
 		});
 
 		afterEach(function () {
