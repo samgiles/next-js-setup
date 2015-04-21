@@ -66,6 +66,7 @@ JsSetup.prototype.init = function (opts) {
 
 		if (flags.get('beacon').isSwitchedOn) {
 			beacon.init && beacon.init(opts.beacon);
+			beacon.fire('pageview');
 		}
 
 		if (flags.get('welcomePanel').isSwitchedOn) {
