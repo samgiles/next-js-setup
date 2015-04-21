@@ -21,7 +21,7 @@ JsSetup.prototype.init = function (opts) {
 	opts = opts || {};
 
 	try {
-		flags.setUrl(opts.flagsUrl || '/__flags.json');
+		flags._setUrl(opts.flagsUrl || '/__flags.json');
 	} catch(e) {
 		if (opts.__testmode) {
 			// safely ignore
