@@ -20,22 +20,12 @@ JsSetup.prototype.init = function (opts) {
 	// may be used for app specific config in future
 	opts = opts || {};
 
-	try {
-		flags.setUrl(opts.flagsUrl || '/__flags.json');
-	} catch(e) {
-		if (opts.__testmode) {
-			// safely ignore
-		} else {
-			throw(e);
-		}
-	}
-
 	attachFastClick(document.body);
 	hoverable.init();
 
-	return flags.init().then(function() {
+	return flags.init({ url: opts.flagsUrl || '/__flags.json' }).then(function() {
 
-		if (flags.get('clientErrorReporting').isSwitchedOn) {
+		if (flags.get('clientErrorReporting')) {
 			Raven.config('https://edb56e86be2446eda092e69732d8654b@app.getsentry.com/32594').install();
 
 			// normalise client and server side method names
@@ -46,23 +36,23 @@ JsSetup.prototype.init = function (opts) {
 
 		this.raven = Raven;
 
-		if (flags.get('userPreferencesAPI').isSwitchedOn) {
+		if (flags.get('userPreferencesAPI')) {
 
 			var myFtOpts = opts.myFtOpts || {};
-			myFtOpts.follow = flags.get('follow').isSwitchedOn;
-			myFtOpts.saveForLater = flags.get('saveForLater').isSwitchedOn;
-			myFtOpts.recommend = flags.get('recommend').isSwitchedOn;
+			myFtOpts.follow = flags.get('follow');
+			myFtOpts.saveForLater = flags.get('saveForLater');
+			myFtOpts.recommend = flags.get('recommend');
 			myFtClient.init(myFtOpts);
 
 			// todo move into next-ui eventually
 			myFtUi.init();
 		}
 
-		if (flags.get('beacon').isSwitchedOn) {
+		if (flags.get('beacon')) {
 			beacon.init && beacon.init(opts.beacon);
 		}
 
-		if (flags.get('welcomePanel').isSwitchedOn) {
+		if (flags.get('welcomePanel')) {
 			welcome.init();
 		}
 
