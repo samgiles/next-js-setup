@@ -42,6 +42,7 @@ JsSetup.prototype.init = function (opts) {
 			myFtOpts.follow = flags.get('follow');
 			myFtOpts.saveForLater = flags.get('saveForLater');
 			myFtOpts.recommend = flags.get('recommend');
+			myFtOpts.userPrefsCleanup = flags.get('userPrefsCleanup');
 			myFtClient.init(myFtOpts);
 
 			// todo move into next-ui eventually
