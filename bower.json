@@ -11,7 +11,7 @@
     "html5shiv": "~3.7.2",
     "isomorphic-fetch": "^1.1.0",
     "next-feature-flags-client": "https://github.com/Financial-Times/next-feature-flags-client.git#^v6.0.3",
-    "next-beacon-component": "https://github.com/Financial-Times/next-beacon-component.git#~0.7.14",
+    "next-beacon-component": "https://github.com/Financial-Times/next-beacon-component.git#^1.2.0",
     "next-myft-client": "Financial-Times/next-myft-client#^1.0.0",
     "next-myft-ui": "Financial-Times/next-myft-ui#^1.0.0",
     "next-welcome": "https://github.com/Financial-Times/next-welcome.git#^2.0.0",
