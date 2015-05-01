@@ -17,6 +17,12 @@ JsSetup.noop = function () {};
 
 JsSetup.prototype.init = function (opts) {
 
+	// Wait til here to include as it has a dependency on Promise
+	// Won't break in its current incarnation, but should be careful anyway
+	require('isomorphic-fetch');
+
+	var jsSetup = this;
+
 	// may be used for app specific config in future
 	opts = opts || {};
 
@@ -26,10 +32,24 @@ JsSetup.prototype.init = function (opts) {
 	return flags.init({ url: opts.flagsUrl || '/__flags.json' }).then(function() {
 
 		if (flags.get('clientErrorReporting')) {
+			if (flags.get('clientAjaxErrorReporting')) {
+
+				var realFetch = window.fetch;
+
+				window.fetch = function (url, opts) {
+					return realFetch.call(this, url, opts)
+						.catch(function (err) {
+							jsSetup._throw(url + (opts ? JSON.stringify(opts) : '' ) + err);
+							throw err;
+						});
+				};
+			}
+
 			Raven.config('https://edb56e86be2446eda092e69732d8654b@app.getsentry.com/32594').install();
 
 			// normalise client and server side method names
 			Raven.captureMessage = Raven.captureException;
+
 		} else {
 			Raven.captureMessage = Raven.captureException = JsSetup.noop;
 		}
