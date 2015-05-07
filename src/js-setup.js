@@ -39,7 +39,9 @@ JsSetup.prototype.init = function (opts) {
 				window.fetch = function (url, opts) {
 					return realFetch.call(this, url, opts)
 						.catch(function (err) {
-							jsSetup._throw(url + (opts ? JSON.stringify(opts) : '' ) + err);
+							if (!url.indexOf('http://ft-next-markets-proxy-api.herokuapp.com') > -1) {
+								jsSetup._throw(url + (opts ? JSON.stringify(opts) : '' ) + err);
+							}
 							throw err;
 						});
 				};
