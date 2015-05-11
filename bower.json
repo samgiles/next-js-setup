@@ -10,15 +10,16 @@
   "dependencies": {
     "html5shiv": "~3.7.2",
     "isomorphic-fetch": "^1.1.0",
-    "next-feature-flags-client": "https://github.com/Financial-Times/next-feature-flags-client.git#^v6.0.3",
-    "next-beacon-component": "https://github.com/Financial-Times/next-beacon-component.git#^1.2.0",
+    "next-feature-flags-client": "Financial-Times/next-feature-flags-client#^v6.0.3",
+    "next-beacon-component": "Financial-Times/next-beacon-component#^1.2.0",
     "next-myft-client": "Financial-Times/next-myft-client#^1.0.0",
     "next-myft-ui": "Financial-Times/next-myft-ui#^1.0.0",
-    "next-welcome": "https://github.com/Financial-Times/next-welcome.git#^2.0.0",
+    "next-welcome": "Financial-Times/next-welcome#^2.0.0",
     "fastclick": "^1.0.6",
     "o-hoverable": "^1.1.0"
   },
   "resolutions": {
-    "o-ft-icons": "next"
+    "o-ft-icons": "next",
+    "o-buttons": "^2.0.2"
   }
 }
