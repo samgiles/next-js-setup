@@ -1,10 +1,12 @@
+sudo: false
 language: node_js
 node_js:
-  - "0.10"
-before_install:
-  - npm install -g https://github.com/Financial-Times/origami-build-tools/tarball/node-0.10
-  - origami-build-tools install
+  - '0.12'
+cache:
+  directories:
+    - node_modules
+    - bower_components
+install:
+  - make install
 script:
-  - origami-build-tools test
-  # because raven is included and fails linting on SOOO many levels
-  # - origami-build-tools verify
+  - make test
