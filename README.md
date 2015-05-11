@@ -50,4 +50,3 @@ Include `{{>next-js-setup/templates/ctm}}` in the `<head>` and `{{>next-js-setup
 ## Tracking
 
 Include `{{>next-js-setup/templates/tracking}}` just before the closing `</body>` tag
-
