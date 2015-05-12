@@ -11,7 +11,7 @@
     "html5shiv": "~3.7.2",
     "isomorphic-fetch": "^1.1.0",
     "next-feature-flags-client": "Financial-Times/next-feature-flags-client#^v7.0.0",
-    "next-beacon-component": "Financial-Times/next-beacon-component#^1.2.0",
+    "next-beacon-component": "Financial-Times/next-beacon-component#^1.3.0",
     "next-myft-client": "Financial-Times/next-myft-client#^1.0.0",
     "next-myft-ui": "Financial-Times/next-myft-ui#^1.0.0",
     "next-welcome": "Financial-Times/next-welcome#^2.0.0",
