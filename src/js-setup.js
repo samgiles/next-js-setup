@@ -1,6 +1,8 @@
 /*jshint node:true*/
 'use strict';
-
+// Wait til here to include as it has a dependency on Promise
+// Won't break in its current incarnation, but should be careful anyway
+require('isomorphic-fetch');
 require('./stubs').init();
 var flags = require('next-feature-flags-client');
 var Raven = require('./raven');
@@ -17,9 +19,7 @@ JsSetup.noop = function () {};
 
 JsSetup.prototype.init = function (opts) {
 
-	// Wait til here to include as it has a dependency on Promise
-	// Won't break in its current incarnation, but should be careful anyway
-	require('isomorphic-fetch');
+
 
 	var jsSetup = this;
 
@@ -76,7 +76,6 @@ JsSetup.prototype.init = function (opts) {
 		if (flags.get('welcomePanel')) {
 			welcome.init();
 		}
-
 		return {
 			flags: flags
 		};
