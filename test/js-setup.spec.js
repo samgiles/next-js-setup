@@ -1,6 +1,8 @@
 /*global require,describe,afterEach,xit,beforeEach,it,expect*/
 'use strict';
 
+window.nextFeatureFlags = [{name: 'aFlag', state: true}];
+
 var jsSetup = require('../main');
 var JsSetup = require('../src/js-setup');
 var sinon = require('sinon');
@@ -31,21 +33,13 @@ describe('js setup', function() {
 	});
 
 	describe('init with flags off', function () {
-		var server;
 		beforeEach(function () {
 			Raven.captureException = ravenCaptureException;
-			server = sinon.fakeServer.create();
-			server.respondWith("GET", "/__flags.json", [200, { "Content-Type": "application/json" },'[]']);
-		});
-
-		afterEach(function () {
-			server.restore();
 		});
 
 		it('should not configure raven', function (done) {
 			var spy = sinon.stub(Raven, 'config');
-			var promise = new JsSetup().init({__testmode: true});
-			server.respond();
+			var promise = new JsSetup().init();
 			promise.then(function () {
 				expect(spy.called).not.to.be.true;
 				spy.restore();
@@ -55,8 +49,7 @@ describe('js setup', function() {
 
 		it('should export raven instance with noop functions', function (done) {
 			var setup = new JsSetup();
-			var promise = setup.init({__testmode: true});
-			server.respond();
+			var promise = setup.init();
 			promise.then(function () {
 				expect(setup.raven).to.be.an('object');
 				expect(setup.raven.captureMessage).to.be.a('function');
@@ -69,8 +62,7 @@ describe('js setup', function() {
 		it('should not init myft', function (done) {
 			var spy1 = sinon.stub(myFtClient, 'init');
 			var spy2 = sinon.stub(myFtUi, 'init');
-			var promise = new JsSetup().init({__testmode: true});
-			server.respond();
+			var promise = new JsSetup().init();
 			promise.then(function () {
 				expect(spy1.called).not.to.be.true;
 				expect(spy2.called).not.to.be.true;
@@ -85,8 +77,7 @@ describe('js setup', function() {
 		// beacon.init not defined yet
 		xit('should not init beacon', function (done) {
 			var spy = sinon.stub(beacon, 'init');
-			var promise = new JsSetup().init({__testmode: true});
-			server.respond();
+			var promise = new JsSetup().init();
 			promise.then(function () {
 				expect(spy.called).not.to.be.true;
 				spy.restore();
@@ -96,36 +87,30 @@ describe('js setup', function() {
 		});
 
 		it('should return promise of flags', function (done) {
-			var promise = new JsSetup().init({__testmode: true});
-			server.respond();
+			var promise = new JsSetup().init();
 			promise.then(function (result) {
 				expect(result).to.be.an('object');
-				expect(result.flags.getAll).to.be.a('function');
+				expect(result.flags.getHash).to.be.a('function');
 				done();
 			});
 		});
 	});
 
 	describe('init with flags on', function () {
-		var server;
 		var flagStub;
 		beforeEach(function () {
 			Raven.captureException = ravenCaptureException;
-			server = sinon.fakeServer.create();
-			server.respondWith("GET", "/__flags.json", [200, { "Content-Type": "application/json" }, JSON.stringify([])]);
 			flagStub = sinon.stub(flagsClient, 'get', function(name) { return true; });
 		});
 
 		afterEach(function () {
-			server.restore();
 			flagStub.restore();
 		});
 
 		it('should configure raven', function (done) {
 			var spy = sinon.spy(Raven, 'config');
 			var setup = new JsSetup();
-			var promise = setup.init({__testmode: true});
-			server.respond();
+			var promise = setup.init();
 			promise.then(function () {
 				expect(setup.raven).to.be.an('object');
 				expect(spy.called).to.be.true;
@@ -144,7 +129,6 @@ describe('js setup', function() {
 			var spy1 = sinon.stub(myFtClient, 'init');
 			var spy2 = sinon.stub(myFtUi, 'init');
 			var promise = new JsSetup().init({__testmode: true, userPreferences: {user: 'prefs'}});
-			server.respond();
 			promise.then(function () {
 				expect(spy1.called).to.be.true;
 				expect(spy2.called).to.be.true;
@@ -162,8 +146,7 @@ describe('js setup', function() {
 				return {install: function () {}};
 			});
 			var spy = sinon.stub(beacon, 'init');
-			var promise = new JsSetup().init({__testmode: true});
-			server.respond();
+			var promise = new JsSetup().init();
 			promise.then(function () {
 				expect(spy.called).to.be.true;
 				spy.restore();
@@ -177,11 +160,10 @@ describe('js setup', function() {
 			var ravenStub = sinon.stub(Raven, 'config', function () {
 				return {install: function () {}};
 			});
-			var promise = new JsSetup().init({__testmode: true});
-			server.respond();
+			var promise = new JsSetup().init();
 			promise.then(function (result) {
 				expect(result).to.be.an('object');
-				expect(result.flags.getAll).to.be.a('function');
+				expect(result.flags.getHash).to.be.a('function');
 				ravenStub.restore();
 				done();
 			});
