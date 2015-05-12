@@ -19,8 +19,6 @@ JsSetup.noop = function () {};
 
 JsSetup.prototype.init = function (opts) {
 
-
-
 	var jsSetup = this;
 
 	// may be used for app specific config in future
@@ -63,6 +61,7 @@ JsSetup.prototype.init = function (opts) {
 			myFtOpts.saveForLater = flags.get('saveForLater');
 			myFtOpts.recommend = flags.get('recommend');
 			myFtOpts.userPrefsCleanup = flags.get('userPrefsCleanup');
+			myFtOpts.userPrefsGuid = flags.get('userPrefsGuid');
 			myFtClient.init(myFtOpts);
 
 			// todo move into next-ui eventually
