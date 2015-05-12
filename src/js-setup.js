@@ -29,7 +29,7 @@ JsSetup.prototype.init = function (opts) {
 	attachFastClick(document.body);
 	hoverable.init();
 
-	return flags.init({ url: opts.flagsUrl || '/__flags.json' }).then(function() {
+	return flags.init().then(function() {
 
 		if (flags.get('clientErrorReporting')) {
 			if (flags.get('clientAjaxErrorReporting')) {
