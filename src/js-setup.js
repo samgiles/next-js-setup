@@ -5,13 +5,13 @@
 require('isomorphic-fetch');
 require('./stubs').init();
 var flags = require('next-feature-flags-client');
-var Raven = require('./raven');
 var myFtClient = require('next-myft-client');
 var myFtUi = require('next-myft-ui');
 var beacon = require('next-beacon-component');
 var welcome = require('next-welcome');
 var attachFastClick = require('fastclick');
 var hoverable = require('o-hoverable');
+var oErrors =require('o-errors');
 
 var JsSetup = function () {};
 
@@ -21,6 +21,10 @@ JsSetup.prototype.init = function (opts) {
 
 	var jsSetup = this;
 
+	this.isProduction = document.documentElement.hasAttribute('data-next-is-production');
+	this.appVersion = document.documentElement.getAttribute('data-next-version');
+	this.appName = document.documentElement.getAttribute('data-next-app');
+
 	// may be used for app specific config in future
 	opts = opts || {};
 
@@ -29,30 +33,35 @@ JsSetup.prototype.init = function (opts) {
 
 	return flags.init().then(function() {
 
-		if (flags.get('clientErrorReporting')) {
-			if (flags.get('clientAjaxErrorReporting')) {
+		oErrors.init({
+			enabled: this.isProduction && flags.get('clientErrorReporting'),
+			sentryEndpoint: 'https://edb56e86be2446eda092e69732d8654b@app.getsentry.com/32594',
+			siteVersion: this.appVersion,
+			logLevel: flags.get('clientDetailedErrorReporting') ? 'contextonly' : 'off'
+		});
 
-				var realFetch = window.fetch;
+		if (flags.get('clientAjaxErrorReporting')) {
 
-				window.fetch = function (url, opts) {
-					return realFetch.call(this, url, opts)
-						.catch(function (err) {
-							jsSetup._throw(url + (opts ? JSON.stringify(opts) : '' ) + err);
-							throw err;
-						});
-				};
-			}
+			var realFetch = window.fetch;
 
-			Raven.config('https://edb56e86be2446eda092e69732d8654b@app.getsentry.com/32594').install();
-
-			// normalise client and server side method names
-			Raven.captureMessage = Raven.captureException;
-
-		} else {
-			Raven.captureMessage = Raven.captureException = JsSetup.noop;
+			window.fetch = function (url, opts) {
+				return realFetch.call(this, url, opts)
+					.catch(function (err) {
+						oErrors.log(url + (opts ? JSON.stringify(opts) : '' ) + err);
+						throw err;
+					});
+			};
 		}
 
-		this.raven = Raven;
+		// backwards compatibility
+		this.raven = {};
+		this.raven.captureMessage = this.raven.captureException = function () {
+			if (!this.isProduction) {
+				console.log('raven is deprecated. Use https://github.com/Financial-Times/o-errors instead');
+			} else {
+				jsSetup._throw('raven is deprecated. Use https://github.com/Financial-Times/o-errors instead');
+			}
+		};
 
 		if (flags.get('userPreferencesAPI')) {
 

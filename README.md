@@ -2,7 +2,7 @@
 
 Set up of shared js dependencies
 
- - Sets up of raven error reporting
+ - Initialises o-errors for error logging
  - Sets up tracking
  - polyfills fetch
  - initialises feature flags

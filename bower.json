@@ -16,7 +16,8 @@
     "next-myft-ui": "Financial-Times/next-myft-ui#>=1.0.0 < 3.0.0",
     "next-welcome": "Financial-Times/next-welcome#^2.0.0",
     "fastclick": "^1.0.6",
-    "o-hoverable": "^1.1.0"
+    "o-hoverable": "^1.1.0",
+    "o-errors": "~2.1.0"
   },
   "resolutions": {
     "o-ft-icons": "next",

@@ -9,4 +9,5 @@ cache:
 install:
   - make install
 script:
+  - obt verify
   - make test
