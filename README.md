@@ -1,4 +1,4 @@
-# next-js-setup [![Build Status](https://travis-ci.org/Financial-Times/next-js-setup.svg?branch=js)](https://travis-ci.org/Financial-Times/next-js-setup)
+# next-js-setup [![Build Status](https://travis-ci.org/Financial-Times/next-js-setup.svg?branch=master)](https://travis-ci.org/Financial-Times/next-js-setup)
 
 Set up of shared js dependencies
 
