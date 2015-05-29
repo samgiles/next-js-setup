@@ -63,8 +63,9 @@ JsSetup.prototype.init = function (opts) {
 			}
 		};
 
-		if (flags.get('userPreferencesAPI')) {
-
+		// if the anonymousMyFt flag is not turned on
+		// then run the normal recognised functionality
+		if (flags.get('userPreferencesAPI') && !flags.get('anonymousMyFt')) {
 			var myFtOpts = opts.myFtOpts || {};
 			myFtOpts.follow = flags.get('follow');
 			myFtOpts.saveForLater = flags.get('saveForLater');
