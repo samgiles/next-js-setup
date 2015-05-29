@@ -1,6 +1,6 @@
 {{#if @root.flags.javascript}}
 <script>
-	var cutsTheMustard = 'getComputedStyle' in window;
+	var cutsTheMustard = 'getComputedStyle' in window && !(window.navigator.userAgent.indexOf('IEMobile') > -1 && !CustomEvent);
 	if (cutsTheMustard) {
 		(function(){
 			var el = document.documentElement;
